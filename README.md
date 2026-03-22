@@ -1,12 +1,10 @@
-# UC-JS-07 — Apply Conversion
+# UC-JS-08 — Compare Two Values
 
-Implemented applyConversion(value, convObj) in conversion.js.
+Implemented compareValues(v1, u1, v2, u2, base1, base2) in conversion.js.
 
-- Performs conversion using factor or formula
-- Multiplies value when factor is provided
-- Evaluates formula string for temperature conversions
-- Returns result rounded to 6 decimal places
+- Compares two values using their normalized base values
+- Returns a human-readable comparison sentence
+- Displays GREATER, LESS, or EQUAL
 
 Error handling:
-- Throws error if input value is invalid
-- Throws "Bad formula" if evaluation fails
+- Returns message if values are invalid
