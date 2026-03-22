@@ -75,11 +75,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 		const actionSelector = document.querySelector("#action-selector");
 		const actionButtons = document.querySelectorAll(".action-btn");
 		for (const btn of actionButtons) {
-			btn.addEventListener("click", async () => {
-				const nextAction = btn.getAttribute("data-action") || "Conversion";
-				state.action = nextAction;
+			btn.addEventListener("click", () => {
+				state.action = btn.dataset.action;
 				setActive(actionSelector, btn, ".action-btn");
-				toggleOperators(nextAction === "Arithmetic");
+				toggleOperators(state.action === "Arithmetic");
+				showResult(0, "");
 			});
 		}
 
