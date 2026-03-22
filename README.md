@@ -1,11 +1,9 @@
-# UC-JS-10 — Populate Unit Dropdown
+# UC-JS-11 — Set Active Button
 
-Implemented populateDropdown(selectEl, units) in ui.js.
+Implemented setActive(parentEl, clickedEl, childSelector) in ui.js.
 
-- Clears existing options in dropdown
-- Adds default disabled option "-- Select Unit --"
-- Populates dropdown with unit options
+- Removes "active" class from all sibling elements
+- Adds "active" class to the clicked element
 
 Error handling:
-- Logs warning if select element is invalid
-- Handles empty unit array by showing only default option
+- Returns early if parent element is null
