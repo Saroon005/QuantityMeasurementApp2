@@ -1,10 +1,12 @@
-# UC-JS-08 — Compare Two Values
+# UC-JS-09 — Perform Arithmetic Operation
 
-Implemented compareValues(v1, u1, v2, u2, base1, base2) in conversion.js.
+Implemented performArithmetic(v1, v2normalised, op) in conversion.js.
 
-- Compares two values using their normalized base values
-- Returns a human-readable comparison sentence
-- Displays GREATER, LESS, or EQUAL
+- Performs arithmetic operations: +, -, *, /
+- Assumes both values are in the same unit
+- Returns result rounded to 6 decimal places
 
 Error handling:
-- Returns message if values are invalid
+- Throws error if input values are invalid
+- Throws "Divide by zero" for division by zero
+- Throws error for unknown operator
