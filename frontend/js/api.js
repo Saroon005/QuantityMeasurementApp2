@@ -1,3 +1,14 @@
-"use strict";
+const BASE_URL = "http://localhost:3000";
 
-// API helpers will be implemented in later use-cases.
+export async function getUnits(type) {
+	try {
+		const res = await fetch(`${BASE_URL}/units?type=${type}`);
+		if (!res.ok) {
+			throw new Error(`HTTP ${res.status}`);
+		}
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return [];
+	}
+}
