@@ -1,10 +1,11 @@
-# UC-JS-03 — Fetch Units by Type
+# UC-JS-04 — Fetch Conversion Record
 
-Implemented getUnits(type) in api.js.
+Implemented getConversion(from, to) in api.js.
 
-- Fetches units from json-server using query parameter ?type=
-- Returns array of unit objects for the selected type
-- Checks response status before parsing JSON
+- Fetches conversion data using query parameters from and to
+- json-server returns an array, first element is used
+- Returns a single conversion object containing factor or formula
 
 Error handling:
-- If request fails, logs error and returns empty array
+- If no conversion exists, throws "No conversion found"
+- Errors are propagated to caller for UI handling

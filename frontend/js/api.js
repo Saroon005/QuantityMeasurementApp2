@@ -12,3 +12,19 @@ export async function getUnits(type) {
 		return [];
 	}
 }
+
+export async function getConversion(from, to) {
+	try {
+		const res = await fetch(`${BASE_URL}/conversions?from=${from}&to=${to}`);
+		const data = await res.json();
+
+		if (!Array.isArray(data) || !data.length) {
+			throw new Error("No conversion found");
+		}
+
+		return data[0];
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
