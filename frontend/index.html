@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Quantity Measurement</title>
+
+		<link rel="stylesheet" href="style.css" />
+
+		<meta
+			name="description"
+			content="Quantity Measurement web app to convert, compare and calculate units."
+		/>
+	</head>
+	<body>
+		<div class="page" id="app-root">
+			<main class="app-container" id="app" role="main">
+				<header class="app-header" id="app-header">
+					<h1 class="app-title" id="app-title">Quantity Measurement</h1>
+					<p class="app-subtitle" id="app-subtitle">
+						Convert, Compare and Calculate Units
+					</p>
+				</header>
+
+				<section class="app-section" aria-labelledby="type-selection-title">
+					<header class="section-header">
+						<h2 class="section-title" id="type-selection-title">Type</h2>
+					</header>
+
+					<div class="type-selector" id="type-selector" role="list">
+						<button
+							type="button"
+							class="type-card"
+							data-type="Length"
+							role="listitem"
+							aria-pressed="false"
+						>
+							<span class="type-card-title">Length</span>
+						</button>
+						<button
+							type="button"
+							class="type-card"
+							data-type="Weight"
+							role="listitem"
+							aria-pressed="false"
+						>
+							<span class="type-card-title">Weight</span>
+						</button>
+						<button
+							type="button"
+							class="type-card"
+							data-type="Temperature"
+							role="listitem"
+							aria-pressed="false"
+						>
+							<span class="type-card-title">Temperature</span>
+						</button>
+						<button
+							type="button"
+							class="type-card"
+							data-type="Time"
+							role="listitem"
+							aria-pressed="false"
+						>
+							<span class="type-card-title">Time</span>
+						</button>
+					</div>
+				</section>
+
+				<section class="app-section" aria-labelledby="action-selection-title">
+					<header class="section-header">
+						<h2 class="section-title" id="action-selection-title">Action</h2>
+					</header>
+
+					<div class="action-selector" id="action-selector">
+						<button
+							type="button"
+							class="action-btn"
+							data-action="Conversion"
+							aria-pressed="false"
+						>
+							Conversion
+						</button>
+						<button
+							type="button"
+							class="action-btn"
+							data-action="Comparison"
+							aria-pressed="false"
+						>
+							Comparison
+						</button>
+						<button
+							type="button"
+							class="action-btn"
+							data-action="Arithmetic"
+							aria-pressed="false"
+						>
+							Arithmetic
+						</button>
+					</div>
+				</section>
+
+				<section class="app-section" aria-labelledby="input-title">
+					<header class="section-header">
+						<h2 class="section-title" id="input-title">Inputs</h2>
+					</header>
+
+					<form class="measurement-form" id="measurement-form" novalidate>
+						<fieldset class="measurement-fieldset" id="from-fieldset">
+							<legend class="fieldset-title">From</legend>
+
+							<div class="field-row">
+								<label class="field-label" for="from-value">Value</label>
+								<input
+									class="field-input"
+									id="from-value"
+									name="fromValue"
+									type="number"
+									inputmode="decimal"
+									placeholder="Enter value"
+									autocomplete="off"
+								/>
+							</div>
+
+							<div class="field-row">
+								<label class="field-label" for="from-unit">Unit</label>
+								<select class="field-select" id="from-unit" name="fromUnit">
+									<option value="" selected disabled>Select unit</option>
+								</select>
+							</div>
+						</fieldset>
+
+						<fieldset class="measurement-fieldset" id="to-fieldset">
+							<legend class="fieldset-title">To</legend>
+
+							<div class="field-row">
+								<label class="field-label" for="to-value">Value</label>
+								<input
+									class="field-input"
+									id="to-value"
+									name="toValue"
+									type="number"
+									inputmode="decimal"
+									placeholder="Result"
+									autocomplete="off"
+								/>
+							</div>
+
+							<div class="field-row">
+								<label class="field-label" for="to-unit">Unit</label>
+								<select class="field-select" id="to-unit" name="toUnit">
+									<option value="" selected disabled>Select unit</option>
+								</select>
+							</div>
+						</fieldset>
+					</form>
+				</section>
+
+				<section class="app-section" aria-labelledby="operator-title">
+					<header class="section-header">
+						<h2 class="section-title" id="operator-title">Operator</h2>
+					</header>
+
+					<div class="operator-selector" id="operator-selector">
+						<button type="button" class="operator-btn" data-op="+">+</button>
+						<button type="button" class="operator-btn" data-op="-">-</button>
+						<button type="button" class="operator-btn" data-op="*">×</button>
+						<button type="button" class="operator-btn" data-op="/">÷</button>
+					</div>
+				</section>
+
+				<section class="app-section" aria-labelledby="result-title">
+					<header class="section-header">
+						<h2 class="section-title" id="result-title">Result</h2>
+					</header>
+
+					<div class="result" id="result">
+						<p class="result-line" aria-live="polite">
+							<span class="result-value" id="result-value">—</span>
+							<span class="result-unit" id="result-unit"></span>
+						</p>
+					</div>
+				</section>
+
+				<section class="app-section" aria-labelledby="history-title">
+					<header class="section-header">
+						<h2 class="section-title" id="history-title">History</h2>
+					</header>
+
+					<ul class="history-list" id="history-list"></ul>
+				</section>
+			</main>
+		</div>
+
+		<script src="js/conversion.js"></script>
+		<script src="js/api.js"></script>
+		<script src="js/ui.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
