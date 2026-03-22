@@ -1,11 +1,11 @@
-# UC-JS-04 — Fetch Conversion Record
+# UC-JS-05 — Save to History
 
-Implemented getConversion(from, to) in api.js.
+Implemented saveHistory(record) in api.js.
 
-- Fetches conversion data using query parameters from and to
-- json-server returns an array, first element is used
-- Returns a single conversion object containing factor or formula
+- Sends POST request to /history endpoint
+- Stores calculation record in json-server
+- Returns saved object with auto-generated id
 
 Error handling:
-- If no conversion exists, throws "No conversion found"
-- Errors are propagated to caller for UI handling
+- If request fails, error is logged
+- Function returns null and does not interrupt application flow
