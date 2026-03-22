@@ -1,12 +1,11 @@
-# UC-JS-09 — Perform Arithmetic Operation
+# UC-JS-10 — Populate Unit Dropdown
 
-Implemented performArithmetic(v1, v2normalised, op) in conversion.js.
+Implemented populateDropdown(selectEl, units) in ui.js.
 
-- Performs arithmetic operations: +, -, *, /
-- Assumes both values are in the same unit
-- Returns result rounded to 6 decimal places
+- Clears existing options in dropdown
+- Adds default disabled option "-- Select Unit --"
+- Populates dropdown with unit options
 
 Error handling:
-- Throws error if input values are invalid
-- Throws "Divide by zero" for division by zero
-- Throws error for unknown operator
+- Logs warning if select element is invalid
+- Handles empty unit array by showing only default option
