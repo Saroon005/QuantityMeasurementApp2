@@ -1,8 +1,15 @@
-# UC-JS-16 — Handle Action Tab Click
+# UC-JS-17 — Execute Calculation
 
-Implemented action button click handling in app.js.
+Implemented calculate() in app.js.
 
-- Updates state with selected action
-- Highlights selected action button
-- Toggles operator row visibility for Arithmetic mode
-- Clears result display
+- Handles Conversion, Comparison, and Arithmetic operations
+- Uses API functions to fetch conversion data
+- Uses calculation functions to compute results
+- Displays result in UI
+
+- Saves calculation record to history
+- Reloads and renders updated history list
+
+Error handling:
+- Returns early if inputs are incomplete
+- Displays error message in result panel if any operation fails

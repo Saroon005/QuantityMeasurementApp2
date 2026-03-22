@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	const api = await import("./api.js");
 	const ui = await import("./ui.js");
+	const conv = await import("./conversion.js");
 
-	const { getUnits, getHistory } = api;
+	const { getUnits, getHistory, getConversion, saveHistory } = api;
 	const { populateDropdown, setActive, showResult, toggleOperators, renderHistory } = ui;
+	const { applyConversion, compareValues, performArithmetic } = conv;
 
 	window.appState = {
 		type: "Length",
@@ -18,6 +20,55 @@ document.addEventListener("DOMContentLoaded", async () => {
 	};
 
 	const state = window.appState;
+
+	async function calculate() {
+		try {
+			if (!state.fromVal || !state.fromUnit || !state.toUnit) {
+				return;
+			}
+
+			if (state.action === "Conversion") {
+				const conversion = await getConversion(state.fromUnit, state.toUnit);
+				const res = applyConversion(state.fromVal, conversion);
+				showResult(res, state.toUnit);
+			} else if (state.action === "Comparison") {
+				const conv1 = await getConversion(state.fromUnit, state.toUnit);
+				const base1 = applyConversion(state.fromVal, conv1);
+				const base2 = state.toVal;
+
+				const result = compareValues(
+					state.fromVal,
+					state.fromUnit,
+					state.toVal,
+					state.toUnit,
+					base1,
+					base2
+				);
+
+				showResult(result, "");
+			} else {
+				const conversion = await getConversion(state.toUnit, state.fromUnit);
+				const v2normalised = applyConversion(state.toVal, conversion);
+
+				const result = performArithmetic(state.fromVal, v2normalised, state.operator);
+				showResult(result, state.fromUnit);
+			}
+
+			const record = {
+				type: state.type,
+				action: state.action,
+				expression: `${state.fromVal} ${state.fromUnit} ${state.operator || ""} ${state.toVal} ${state.toUnit}`,
+				result: document.querySelector("#result-value").textContent,
+				timestamp: new Date().toISOString()
+			};
+
+			await saveHistory(record);
+			const history = await getHistory();
+			renderHistory(history);
+		} catch (e) {
+			showResult("Error: " + e.message, "");
+		}
+	}
 
 	async function loadUnits(type) {
 		const fromSelect = document.querySelector("#from-unit");
@@ -90,6 +141,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 				const op = btn.getAttribute("data-op") || "+";
 				state.operator = op;
 				setActive(operatorSelector, btn, ".operator-btn");
+				await calculate();
 			});
 		}
 
@@ -98,6 +150,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			fromValueInput.addEventListener("input", async () => {
 				const raw = fromValueInput.value;
 				state.fromVal = raw === "" ? null : Number(raw);
+				await calculate();
 			});
 		}
 
@@ -106,6 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			toValueInput.addEventListener("input", async () => {
 				const raw = toValueInput.value;
 				state.toVal = raw === "" ? null : Number(raw);
+				await calculate();
 			});
 		}
 
@@ -113,6 +167,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		if (fromUnitSelect) {
 			fromUnitSelect.addEventListener("change", async () => {
 				state.fromUnit = fromUnitSelect.value;
+				await calculate();
 			});
 		}
 
@@ -120,6 +175,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		if (toUnitSelect) {
 			toUnitSelect.addEventListener("change", async () => {
 				state.toUnit = toUnitSelect.value;
+				await calculate();
 			});
 		}
 	}
