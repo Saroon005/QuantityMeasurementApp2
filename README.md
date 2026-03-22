@@ -1,11 +1,12 @@
-# UC-JS-06 — Load History
+# UC-JS-07 — Apply Conversion
 
-Implemented getHistory() in api.js.
+Implemented applyConversion(value, convObj) in conversion.js.
 
-- Fetches all history records from json-server
-- Uses query parameters to sort by timestamp in descending order
-- Returns array of records
+- Performs conversion using factor or formula
+- Multiplies value when factor is provided
+- Evaluates formula string for temperature conversions
+- Returns result rounded to 6 decimal places
 
 Error handling:
-- If request fails, logs error and returns empty array
-- UI displays "No history yet" when array is empty
+- Throws error if input value is invalid
+- Throws "Bad formula" if evaluation fails
