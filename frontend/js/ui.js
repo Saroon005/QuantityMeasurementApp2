@@ -58,3 +58,13 @@ export function showResult(value, unitSymbol) {
 		valueEl.classList.remove("highlight");
 	}, 1500);
 }
+
+export function toggleOperators(show) {
+	const opEl = document.querySelector("#operator-selector");
+	if (!opEl) {
+		console.warn("Operator selector not found");
+		return;
+	}
+
+	opEl.style.display = show ? "flex" : "none";
+}

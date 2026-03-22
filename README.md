@@ -1,11 +1,9 @@
-# UC-JS-12 — Show Result
+# UC-JS-13 — Toggle Operator Row
 
-Implemented showResult(value, unitSymbol) in ui.js.
+Implemented toggleOperators(show) in ui.js.
 
-- Updates result value and unit in the result panel
-- Displays "—" if value is null
-- Supports both numeric and string results
-- Adds highlight animation on update
+- Shows operator row when action is Arithmetic
+- Hides operator row for other actions
 
 Error handling:
-- Returns early if required DOM elements are not found
+- Logs warning if operator selector element is not found
