@@ -49,3 +49,13 @@ export async function saveHistory(record) {
 		return null;
 	}
 }
+
+export async function getHistory() {
+	try {
+		const res = await fetch(`${BASE_URL}/history?_sort=timestamp&_order=desc`);
+		return await res.json();
+	} catch (error) {
+		console.error(error);
+		return [];
+	}
+}

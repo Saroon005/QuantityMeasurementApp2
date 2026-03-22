@@ -1,11 +1,11 @@
-# UC-JS-05 — Save to History
+# UC-JS-06 — Load History
 
-Implemented saveHistory(record) in api.js.
+Implemented getHistory() in api.js.
 
-- Sends POST request to /history endpoint
-- Stores calculation record in json-server
-- Returns saved object with auto-generated id
+- Fetches all history records from json-server
+- Uses query parameters to sort by timestamp in descending order
+- Returns array of records
 
 Error handling:
-- If request fails, error is logged
-- Function returns null and does not interrupt application flow
+- If request fails, logs error and returns empty array
+- UI displays "No history yet" when array is empty
