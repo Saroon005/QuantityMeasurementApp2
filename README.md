@@ -1,12 +1,13 @@
-# UC-JS-14 — Render History List
+# UC-JS-15 — Handle Type Card Click
 
-Implemented renderHistory(records) in ui.js.
+Implemented type card click handling in app.js.
 
-- Clears existing history list
-- Displays all records in newest-first order
-- Shows "No history yet" when no records are present
-- Formats timestamp using local date and time
+- Updates state with selected type
+- Highlights selected type card
+- Clears input fields and result
+- Fetches units for selected type
+- Populates FROM and TO dropdowns
 
 Error handling:
-- Treats undefined records as empty array
-- Returns early if history list element is not found
+- If unit fetch fails, shows alert
+- Existing dropdown data is not cleared

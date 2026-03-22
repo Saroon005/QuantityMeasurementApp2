@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", async () => {
 	"use strict";
 
+	const api = await import("./api.js");
+	const ui = await import("./ui.js");
+
+	const { getUnits, getHistory } = api;
+	const { populateDropdown, setActive, showResult, toggleOperators, renderHistory } = ui;
+
 	window.appState = {
 		type: "Length",
 		action: "Conversion",
@@ -13,129 +19,77 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	const state = window.appState;
 
-	function setActive(elements, activeElement) {
-		for (const element of elements) {
-			const isActive = element === activeElement;
-			element.classList.toggle("active", isActive);
-			if (element.matches("button")) {
-				element.setAttribute("aria-pressed", String(isActive));
-			}
-		}
-	}
-
-	function populateUnitDropdown(selectEl, units) {
-		selectEl.innerHTML = "<option value=\"\" selected disabled>Select unit</option>";
-
-		for (const unit of units) {
-			const option = document.createElement("option");
-			option.value = unit.symbol;
-			option.textContent = `${unit.label} (${unit.symbol})`;
-			selectEl.appendChild(option);
-		}
-	}
-
 	async function loadUnits(type) {
-		let response;
-		try {
-			response = await fetch(`http://localhost:3000/units?type=${encodeURIComponent(type)}`);
-		} catch {
-			throw new Error("SERVER_UNAVAILABLE");
-		}
-
-		if (!response.ok) {
-			alert("Failed to load units");
+		const fromSelect = document.querySelector("#from-unit");
+		const toSelect = document.querySelector("#to-unit");
+		if (!fromSelect || !toSelect) {
 			return;
 		}
 
-		let units;
-		try {
-			units = await response.json();
-		} catch {
-			alert("Failed to load units");
-			return;
-		}
-
-		const fromUnitSelect = document.querySelector("#from-unit");
-		const toUnitSelect = document.querySelector("#to-unit");
-
-		if (!fromUnitSelect || !toUnitSelect) {
-			return;
-		}
-
-		populateUnitDropdown(fromUnitSelect, Array.isArray(units) ? units : []);
-		populateUnitDropdown(toUnitSelect, Array.isArray(units) ? units : []);
+		const units = await getUnits(type);
+		populateDropdown(fromSelect, units);
+		populateDropdown(toSelect, units);
 	}
 
 	async function loadHistory() {
-		let response;
-		try {
-			response = await fetch("http://localhost:3000/history?_sort=timestamp&_order=desc");
-		} catch {
-			throw new Error("SERVER_UNAVAILABLE");
-		}
-
-		if (!response.ok) {
-			throw new Error("SERVER_UNAVAILABLE");
-		}
-
-		const history = await response.json();
-		const historyList = document.querySelector("#history-list");
-		if (!historyList) {
-			return;
-		}
-
-		historyList.innerHTML = "";
-
-		const historyItems = Array.isArray(history) ? history : [];
-		if (historyItems.length === 0) {
-			const emptyItem = document.createElement("li");
-			emptyItem.textContent = "No history yet";
-			historyList.appendChild(emptyItem);
-			return;
-		}
-
-		for (const item of historyItems) {
-			const li = document.createElement("li");
-			li.textContent = typeof item === "object" && item !== null ? JSON.stringify(item) : String(item);
-			historyList.appendChild(li);
-		}
+		const records = await getHistory();
+		renderHistory(records);
 	}
 
 	function attachEventListeners() {
-		const typeCards = document.querySelectorAll(".type-card");
-		for (const card of typeCards) {
+		const typeSelector = document.querySelector("#type-selector");
+		const fromInput = document.querySelector("#from-value");
+		const toInput = document.querySelector("#to-value");
+		const fromSelect = document.querySelector("#from-unit");
+		const toSelect = document.querySelector("#to-unit");
+
+		document.querySelectorAll(".type-card").forEach((card) => {
 			card.addEventListener("click", async () => {
-				const nextType = card.getAttribute("data-type") || "Length";
-				state.type = nextType;
-				setActive(typeCards, card);
+				state.type = card.dataset.type;
+				setActive(typeSelector, card, ".type-card");
+
+				if (fromInput) {
+					fromInput.value = "";
+				}
+				if (toInput) {
+					toInput.value = "";
+				}
+				showResult(0, "");
+
 				try {
-					await loadUnits(nextType);
-				} catch {
-					alert("Server unavailable");
+					const units = await getUnits(state.type);
+					if (!Array.isArray(units) || units.length === 0) {
+						throw new Error("Failed to load units");
+					}
+					populateDropdown(fromSelect, units);
+					populateDropdown(toSelect, units);
+					state.fromUnit = "";
+					state.toUnit = "";
+				} catch (error) {
+					console.error(error);
+					alert("Failed to load units");
 				}
 			});
-		}
+		});
 
+		const actionSelector = document.querySelector("#action-selector");
 		const actionButtons = document.querySelectorAll(".action-btn");
 		for (const btn of actionButtons) {
 			btn.addEventListener("click", async () => {
 				const nextAction = btn.getAttribute("data-action") || "Conversion";
 				state.action = nextAction;
-				setActive(actionButtons, btn);
-
-				const operatorRow = document.querySelector("#operator-selector");
-				if (operatorRow) {
-					operatorRow.style.display = nextAction === "Arithmetic" ? "flex" : "none";
-				}
+				setActive(actionSelector, btn, ".action-btn");
+				toggleOperators(nextAction === "Arithmetic");
 			});
 		}
 
+		const operatorSelector = document.querySelector("#operator-selector");
 		const operatorButtons = document.querySelectorAll(".operator-btn");
 		for (const btn of operatorButtons) {
 			btn.addEventListener("click", async () => {
 				const op = btn.getAttribute("data-op") || "+";
 				state.operator = op;
-				setActive(operatorButtons, btn);
+				setActive(operatorSelector, btn, ".operator-btn");
 			});
 		}
 
@@ -171,20 +125,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	try {
-		const typeCards = document.querySelectorAll(".type-card");
-		if (typeCards.length > 0) {
-			setActive(typeCards, typeCards[0]);
+		const typeSelector = document.querySelector("#type-selector");
+		const actionSelector = document.querySelector("#action-selector");
+
+		const firstTypeCard = document.querySelector(".type-card");
+		if (firstTypeCard) {
+			setActive(typeSelector, firstTypeCard, ".type-card");
 		}
 
-		const actionButtons = document.querySelectorAll(".action-btn");
-		if (actionButtons.length > 0) {
-			setActive(actionButtons, actionButtons[0]);
+		const firstActionBtn = document.querySelector(".action-btn");
+		if (firstActionBtn) {
+			setActive(actionSelector, firstActionBtn, ".action-btn");
 		}
 
-		const operatorRow = document.querySelector("#operator-selector");
-		if (operatorRow) {
-			operatorRow.style.display = "none";
-		}
+		toggleOperators(false);
 
 		attachEventListeners();
 		await loadUnits("Length");
