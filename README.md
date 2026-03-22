@@ -1,9 +1,11 @@
-# UC-JS-11 — Set Active Button
+# UC-JS-12 — Show Result
 
-Implemented setActive(parentEl, clickedEl, childSelector) in ui.js.
+Implemented showResult(value, unitSymbol) in ui.js.
 
-- Removes "active" class from all sibling elements
-- Adds "active" class to the clicked element
+- Updates result value and unit in the result panel
+- Displays "—" if value is null
+- Supports both numeric and string results
+- Adds highlight animation on update
 
 Error handling:
-- Returns early if parent element is null
+- Returns early if required DOM elements are not found
