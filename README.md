@@ -1,9 +1,12 @@
-# UC-JS-13 — Toggle Operator Row
+# UC-JS-14 — Render History List
 
-Implemented toggleOperators(show) in ui.js.
+Implemented renderHistory(records) in ui.js.
 
-- Shows operator row when action is Arithmetic
-- Hides operator row for other actions
+- Clears existing history list
+- Displays all records in newest-first order
+- Shows "No history yet" when no records are present
+- Formats timestamp using local date and time
 
 Error handling:
-- Logs warning if operator selector element is not found
+- Treats undefined records as empty array
+- Returns early if history list element is not found
