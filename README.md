@@ -1,19 +1,11 @@
-Quantity Measurement App From Clean Code Foundations to Full-Stack Mastery
+# UC-JS-01 — Create JSON Server Database
 
-Overview The Quantity Measurement App is a pedagogical project activity designed to bridge the gap between academic programming and industry-standard software engineering.
-Rather than building disjointed "To-Do" apps, the learner builds a conversion engine (handling Length, Volume, Mass, and Temperature) that evolves in complexity. By centering on a domain that is easy to understand (converting units like Length, Weight, and Temperature) but difficult to scale correctly, learners are forced to adopt Clean Code practices early.
+Created `db.json` with three collections:
 
-The journey begins with the strict discipline of Test-Driven Development (TDD) and Object-Oriented Design (OOD), progresses into building robust RESTful APIs with Spring Boot, and culminates in a modern, responsive ReactJS frontend supported by a scalable Microservices architecture.
+- units: contains measurement units grouped by type
+- conversions: contains factor and formula based conversion rules
+- history: initialized as an empty array
 
-High-Level Coverage The project is structured into four distinct "Evolutionary Tiers," ensuring that no concept is introduced without a practical problem to solve.
-Tier 1: The Core Engine (Logic & Design): Focuses on "The Art of the Class." Solving conversion logic using Enums, Interfaces, and pure OOD without the distraction of frameworks. Tier 2: The Service Layer (Persistence & APIs): Introduction of Spring Boot (or .NET Core) to turn the engine into a living service. Tier 3: The Distributed System (Microservices): Breaking the monolith. Scaling the measurement units into independent services that communicate via a Discovery Server and API Gateway. Tier 4: The User Experience (Frontend): Bringing the data to life using ReactJS, focusing on state management and seamless API integration. 3. Key Learning Outcomes The curriculum is grouped into these core competency areas:
+Verified that JSON structure is valid and ready for json-server.
 
-Object-Oriented Design & Clean Code
-
-TDD Methodology: Writing failing tests first to drive the design of the conversion logic. SOLID Principles: Applying Single Responsibility and Open/Closed principles to allow new units (e.g., "Pressure") to be added without breaking existing code. Design Patterns: Utilizing patterns like Factory, Singleton, or Strategy where appropriate. Backend Architecture (Spring Boot / .NET)
-
-RESTful API Design: Implementing standard HTTP verbs and status codes for unit conversion requests. Global Exception Handling: Creating a graceful user experience when invalid conversions (e.g., "Kilograms to Liters") are attempted. Data Persistence: Using Spring Data JPA/Hibernate to store conversion history and user preferences. Cloud-Native & Microservices
-
-Service Discovery: Implementing Netflix Eureka (or similar) to manage service instances. API Gateway: Routing and security through a single entry point. Inter-service Communication: Understanding how different measurement modules talk to one another. Frontend Development (ReactJS)
-
-Component-Based Architecture: Building reusable UI elements for unit inputs and conversion displays. State Management: Handling complex UI states (e.g., syncing dropdowns for Imperial vs. Metric units). Asynchronous Operations: Mastering Axios or Fetch to connect the UI to the backend services. 4. Features of this approach. Incremental Complexity: The learner never feels "thrown into the deep end"; every new technology solves a specific pain point created by the previous phase. Refactoring Skills: Because the project evolves, learners must refactor their old code to fit new requirements—a skill often neglected in traditional education but vital in the industry. Best Practice & Tools: Learners follow best practices from the beginning and keep using the tools like Git, Gradle/Maven, Postman, etc. Contextual Learning: Instead of learning "Spring Boot" in a vacuum, the student uses it to solve a problem they’ve already encountered: "How do I make my conversion logic accessible to the internet?"
+---

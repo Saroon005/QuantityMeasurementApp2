@@ -1,0 +1,67 @@
+{
+	"units": [
+		{ "id": 1, "type": "Length", "label": "Meter", "symbol": "m" },
+		{ "id": 2, "type": "Length", "label": "Centimeter", "symbol": "cm" },
+		{ "id": 3, "type": "Length", "label": "Millimeter", "symbol": "mm" },
+		{ "id": 4, "type": "Length", "label": "Kilometer", "symbol": "km" },
+		{ "id": 5, "type": "Length", "label": "Inch", "symbol": "in" },
+		{ "id": 6, "type": "Length", "label": "Foot", "symbol": "ft" },
+		{ "id": 7, "type": "Length", "label": "Yard", "symbol": "yd" },
+		{ "id": 8, "type": "Length", "label": "Mile", "symbol": "mi" },
+
+		{ "id": 9, "type": "Weight", "label": "Tonne", "symbol": "t" },
+		{ "id": 10, "type": "Weight", "label": "Kilogram", "symbol": "kg" },
+		{ "id": 11, "type": "Weight", "label": "Gram", "symbol": "g" },
+		{ "id": 12, "type": "Weight", "label": "Pound", "symbol": "lb" },
+		{ "id": 13, "type": "Weight", "label": "Ounce", "symbol": "oz" },
+
+		{ "id": 14, "type": "Temperature", "label": "Celsius", "symbol": "C" },
+		{ "id": 15, "type": "Temperature", "label": "Fahrenheit", "symbol": "F" },
+		{ "id": 16, "type": "Temperature", "label": "Kelvin", "symbol": "K" },
+
+		{ "id": 17, "type": "Volume", "label": "Liter", "symbol": "L" },
+		{ "id": 18, "type": "Volume", "label": "Milliliter", "symbol": "mL" },
+		{ "id": 19, "type": "Volume", "label": "Gallon", "symbol": "gal" },
+		{ "id": 20, "type": "Volume", "label": "Cubic Meter", "symbol": "m3" }
+	],
+	"conversions": [
+		{ "id": 21, "from": "m", "to": "cm", "factor": 100, "formula": null },
+		{ "id": 22, "from": "cm", "to": "m", "factor": 0.01, "formula": null },
+		{ "id": 23, "from": "m", "to": "mm", "factor": 1000, "formula": null },
+		{ "id": 24, "from": "mm", "to": "m", "factor": 0.001, "formula": null },
+		{ "id": 25, "from": "m", "to": "km", "factor": 0.001, "formula": null },
+		{ "id": 26, "from": "km", "to": "m", "factor": 1000, "formula": null },
+		{ "id": 27, "from": "m", "to": "in", "factor": 39.37007874015748, "formula": null },
+		{ "id": 28, "from": "in", "to": "m", "factor": 0.0254, "formula": null },
+		{ "id": 29, "from": "m", "to": "ft", "factor": 3.280839895013123, "formula": null },
+		{ "id": 30, "from": "ft", "to": "m", "factor": 0.3048, "formula": null },
+		{ "id": 31, "from": "m", "to": "yd", "factor": 1.0936132983377078, "formula": null },
+		{ "id": 32, "from": "yd", "to": "m", "factor": 0.9144, "formula": null },
+		{ "id": 33, "from": "m", "to": "mi", "factor": 0.0006213711922373339, "formula": null },
+		{ "id": 34, "from": "mi", "to": "m", "factor": 1609.344, "formula": null },
+
+		{ "id": 35, "from": "kg", "to": "t", "factor": 0.001, "formula": null },
+		{ "id": 36, "from": "t", "to": "kg", "factor": 1000, "formula": null },
+		{ "id": 37, "from": "kg", "to": "g", "factor": 1000, "formula": null },
+		{ "id": 38, "from": "g", "to": "kg", "factor": 0.001, "formula": null },
+		{ "id": 39, "from": "kg", "to": "lb", "factor": 2.2046226218487757, "formula": null },
+		{ "id": 40, "from": "lb", "to": "kg", "factor": 0.45359237, "formula": null },
+		{ "id": 41, "from": "kg", "to": "oz", "factor": 35.27396194958041, "formula": null },
+		{ "id": 42, "from": "oz", "to": "kg", "factor": 0.028349523125, "formula": null },
+
+		{ "id": 43, "from": "L", "to": "mL", "factor": 1000, "formula": null },
+		{ "id": 44, "from": "mL", "to": "L", "factor": 0.001, "formula": null },
+		{ "id": 45, "from": "L", "to": "gal", "factor": 0.2641720523581484, "formula": null },
+		{ "id": 46, "from": "gal", "to": "L", "factor": 3.785411784, "formula": null },
+		{ "id": 47, "from": "L", "to": "m3", "factor": 0.001, "formula": null },
+		{ "id": 48, "from": "m3", "to": "L", "factor": 1000, "formula": null },
+
+		{ "id": 49, "from": "C", "to": "F", "factor": null, "formula": "(x*9/5)+32" },
+		{ "id": 50, "from": "F", "to": "C", "factor": null, "formula": "(x-32)*5/9" },
+		{ "id": 51, "from": "C", "to": "K", "factor": null, "formula": "x+273.15" },
+		{ "id": 52, "from": "K", "to": "C", "factor": null, "formula": "x-273.15" },
+		{ "id": 53, "from": "F", "to": "K", "factor": null, "formula": "((x-32)*5/9)+273.15" },
+		{ "id": 54, "from": "K", "to": "F", "factor": null, "formula": "((x-273.15)*9/5)+32" }
+	],
+	"history": []
+}
