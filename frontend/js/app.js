@@ -23,7 +23,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 	async function calculate() {
 		try {
-			if (!state.fromVal || !state.fromUnit || !state.toUnit) {
+			if (
+				state.fromVal === null ||
+				!state.fromUnit ||
+				!state.toUnit ||
+				(state.action !== "Conversion" && state.toVal === null)
+			) {
 				return;
 			}
 
@@ -54,6 +59,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 				showResult(result, state.fromUnit);
 			}
 
+			const resultText = document.querySelector("#result-value").textContent;
+
+			if (!resultText || resultText === "—") {
+				return;
+			}
 			const record = {
 				type: state.type,
 				action: state.action,
@@ -141,7 +151,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 				const op = btn.getAttribute("data-op") || "+";
 				state.operator = op;
 				setActive(operatorSelector, btn, ".operator-btn");
-				await calculate();
+				calculate();
 			});
 		}
 
@@ -150,7 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			fromValueInput.addEventListener("input", async () => {
 				const raw = fromValueInput.value;
 				state.fromVal = raw === "" ? null : Number(raw);
-				await calculate();
+				calculate();
 			});
 		}
 
@@ -159,7 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			toValueInput.addEventListener("input", async () => {
 				const raw = toValueInput.value;
 				state.toVal = raw === "" ? null : Number(raw);
-				await calculate();
+				calculate();
 			});
 		}
 
@@ -167,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		if (fromUnitSelect) {
 			fromUnitSelect.addEventListener("change", async () => {
 				state.fromUnit = fromUnitSelect.value;
-				await calculate();
+				calculate();
 			});
 		}
 
@@ -175,7 +185,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		if (toUnitSelect) {
 			toUnitSelect.addEventListener("change", async () => {
 				state.toUnit = toUnitSelect.value;
-				await calculate();
+				calculate();
 			});
 		}
 	}
